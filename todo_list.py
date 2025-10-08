@@ -14,3 +14,7 @@ class TodoList:
     def add_task(self, task: str) -> None:
         """Add a task to the todo list."""
         self.tasks.append(task)
+    
+    def view_tasks(self) -> List[str]:
+        """Return a copy of the list of tasks."""
+        return self.tasks.copy()
