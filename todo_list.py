@@ -2,7 +2,7 @@
 Todo List implementation module.
 """
 
-from typing import List
+from typing import List, Union
 
 
 class TodoList:
@@ -19,3 +19,32 @@ class TodoList:
     def view_tasks(self) -> List[str]:
         """Return a copy of the list of tasks."""
         return self.tasks.copy()
+
+    def delete_task(self, identifier: Union[int, str]) -> str:
+        """Delete a task by index or name and return the deleted task.
+        
+        Args:
+            identifier: Either the index of the task to delete or the name of the task to delete.
+            
+        Returns:
+            The deleted task.
+            
+        Raises:
+            IndexError: If identifier is an index that's out of range.
+            ValueError: If identifier is a name that doesn't exist in the list.
+        """
+        if isinstance(identifier, int):
+            # Delete by index
+            if 0 <= identifier < len(self.tasks):
+                return self.tasks.pop(identifier)
+            else:
+                raise IndexError("list index out of range")
+        elif isinstance(identifier, str):
+            # Delete by name
+            if identifier in self.tasks:
+                index = self.tasks.index(identifier)
+                return self.tasks.pop(index)
+            else:
+                raise ValueError(f"Task '{identifier}' not found")
+        else:
+            raise TypeError("Identifier must be an integer or string")
