@@ -21,9 +21,9 @@ def test_update_task_by_index() -> None:
     # Verify the task was updated and old task was returned
     assert old_task == initial_task
     assert len(todo_list.tasks) == 1
-    assert "Buy food" in todo_list.tasks
-    assert initial_task not in todo_list.tasks
-    assert todo_list.tasks[0] == "Buy food"
+    assert "Buy food" in todo_list.view_tasks()
+    assert initial_task not in todo_list.view_tasks()
+    assert todo_list.view_tasks()[0] == "Buy food"
 
 
 def test_update_task_by_name() -> None:
@@ -40,11 +40,11 @@ def test_update_task_by_name() -> None:
     # Verify the task was updated and old task was returned
     assert old_task == "Walk the dog"
     assert len(todo_list.tasks) == 3
-    assert "Take the dog for a walk" in todo_list.tasks
-    assert "Walk the dog" not in todo_list.tasks
+    assert "Take the dog for a walk" in todo_list.view_tasks()
+    assert "Walk the dog" not in todo_list.view_tasks()
     # Other tasks should remain unchanged
-    assert "Buy groceries" in todo_list.tasks
-    assert "Clean the house" in todo_list.tasks
+    assert "Buy groceries" in todo_list.view_tasks()
+    assert "Clean the house" in todo_list.view_tasks()
 
 
 def test_update_task_multiple_occurrences_by_name() -> None:
@@ -61,10 +61,10 @@ def test_update_task_multiple_occurrences_by_name() -> None:
     # Verify only the first occurrence was updated
     assert old_task == "Buy groceries"
     assert len(todo_list.tasks) == 3
-    assert todo_list.tasks.count("Buy groceries") == 1  # One remaining
-    assert todo_list.tasks.count("Buy food items") == 1  # One updated
-    assert "Buy food items" in todo_list.tasks
-    assert todo_list.tasks[0] == "Buy food items"  # First occurrence updated
+    assert todo_list.view_tasks().count("Buy groceries") == 1  # One remaining
+    assert todo_list.view_tasks().count("Buy food items") == 1  # One updated
+    assert "Buy food items" in todo_list.view_tasks()
+    assert todo_list.view_tasks()[0] == "Buy food items"  # First occurrence updated
 
 
 def test_update_task_by_index_multiple_tasks() -> None:
@@ -81,12 +81,12 @@ def test_update_task_by_index_multiple_tasks() -> None:
     # Verify the correct task was updated
     assert old_task == "Walk the dog"
     assert len(todo_list.tasks) == 3
-    assert "Take the dog for a walk" in todo_list.tasks
-    assert "Walk the dog" not in todo_list.tasks
-    assert todo_list.tasks[1] == "Take the dog for a walk"
+    assert "Take the dog for a walk" in todo_list.view_tasks()
+    assert "Walk the dog" not in todo_list.view_tasks()
+    assert todo_list.view_tasks()[1] == "Take the dog for a walk"
     # Other tasks should remain unchanged
-    assert todo_list.tasks[0] == "Buy groceries"
-    assert todo_list.tasks[2] == "Clean the house"
+    assert todo_list.view_tasks()[0] == "Buy groceries"
+    assert todo_list.view_tasks()[2] == "Clean the house"
 
 
 def test_update_task_by_index_out_of_range() -> None:
@@ -139,8 +139,8 @@ def test_update_task_to_same_value() -> None:
     # Verify the task remains the same
     assert old_task == "Buy groceries"
     assert len(todo_list.tasks) == 1
-    assert task in todo_list.tasks
-    assert todo_list.tasks[0] == "Buy groceries"
+    assert task in todo_list.view_tasks()
+    assert todo_list.view_tasks()[0] == "Buy groceries"
 
 
 def test_update_task_with_special_characters() -> None:
@@ -155,6 +155,6 @@ def test_update_task_with_special_characters() -> None:
 
     # Verify the task was updated correctly
     assert old_task == original_task
-    assert new_task in todo_list.tasks
-    assert original_task not in todo_list.tasks
-    assert todo_list.tasks[0] == new_task
+    assert new_task in todo_list.view_tasks()
+    assert original_task not in todo_list.view_tasks()
+    assert todo_list.view_tasks()[0] == new_task

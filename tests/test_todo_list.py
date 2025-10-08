@@ -18,7 +18,7 @@ def test_add_task() -> None:
 
     # Verify the task was added
     assert len(todo_list.tasks) == initial_task_count + 1
-    assert task in todo_list.tasks
+    assert task in todo_list.view_tasks()  # Use view_tasks() instead of direct access
 
 
 def test_add_multiple_tasks() -> None:
@@ -33,7 +33,7 @@ def test_add_multiple_tasks() -> None:
     # Verify all tasks were added
     assert len(todo_list.tasks) == 3
     for task in tasks:
-        assert task in todo_list.tasks
+        assert task in todo_list.view_tasks()  # Use view_tasks() instead of direct access
 
 
 def test_add_empty_task() -> None:
@@ -45,7 +45,7 @@ def test_add_empty_task() -> None:
 
     # Verify the empty task was added
     assert len(todo_list.tasks) == 1
-    assert "" in todo_list.tasks
+    assert "" in todo_list.view_tasks()  # Use view_tasks() instead of direct access
 
 
 def test_add_task_with_special_characters() -> None:
@@ -57,4 +57,4 @@ def test_add_task_with_special_characters() -> None:
     todo_list.add_task(special_task)
 
     # Verify the task was added
-    assert special_task in todo_list.tasks
+    assert special_task in todo_list.view_tasks()  # Use view_tasks() instead of direct access
