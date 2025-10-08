@@ -37,9 +37,9 @@ def test_delete_task_by_index_multiple_tasks() -> None:
     # Verify the correct task was deleted and returned
     assert deleted_task == "Walk the dog"
     assert len(todo_list.tasks) == 2
-    assert "Walk the dog" not in todo_list.tasks
-    assert "Buy groceries" in todo_list.tasks
-    assert "Clean the house" in todo_list.tasks
+    assert "Walk the dog" not in todo_list.view_tasks()
+    assert "Buy groceries" in todo_list.view_tasks()
+    assert "Clean the house" in todo_list.view_tasks()
 
 
 def test_delete_task_by_index_first_task() -> None:
@@ -56,7 +56,7 @@ def test_delete_task_by_index_first_task() -> None:
     # Verify the correct task was deleted
     assert deleted_task == "Buy groceries"
     assert len(todo_list.tasks) == 2
-    assert "Buy groceries" not in todo_list.tasks
+    assert "Buy groceries" not in todo_list.view_tasks()
     remaining_tasks = todo_list.view_tasks()
     assert remaining_tasks == ["Walk the dog", "Clean the house"]
 
@@ -75,7 +75,7 @@ def test_delete_task_by_index_last_task() -> None:
     # Verify the correct task was deleted
     assert deleted_task == "Clean the house"
     assert len(todo_list.tasks) == 2
-    assert "Clean the house" not in todo_list.tasks
+    assert "Clean the house" not in todo_list.view_tasks()
     remaining_tasks = todo_list.view_tasks()
     assert remaining_tasks == ["Buy groceries", "Walk the dog"]
 
@@ -94,9 +94,9 @@ def test_delete_task_by_name_existing_task() -> None:
     # Verify the correct task was deleted and returned
     assert deleted_task == "Walk the dog"
     assert len(todo_list.tasks) == 2
-    assert "Walk the dog" not in todo_list.tasks
-    assert "Buy groceries" in todo_list.tasks
-    assert "Clean the house" in todo_list.tasks
+    assert "Walk the dog" not in todo_list.view_tasks()
+    assert "Buy groceries" in todo_list.view_tasks()
+    assert "Clean the house" in todo_list.view_tasks()
 
 
 def test_delete_task_by_name_duplicate_tasks() -> None:
@@ -114,8 +114,8 @@ def test_delete_task_by_name_duplicate_tasks() -> None:
     assert deleted_task == "Buy groceries"
     assert len(todo_list.tasks) == 2
     # One "Buy groceries" should remain
-    assert todo_list.tasks.count("Buy groceries") == 1
-    assert "Walk the dog" in todo_list.tasks
+    assert todo_list.view_tasks().count("Buy groceries") == 1
+    assert "Walk the dog" in todo_list.view_tasks()
 
 
 def test_delete_task_by_index_out_of_range() -> None:
