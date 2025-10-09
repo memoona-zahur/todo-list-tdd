@@ -1,7 +1,7 @@
 import sys
 sys.path.insert(0, '.')
 
-from todo_list import TodoList
+from todo.todo_list import TodoList
 
 # Create a new todo list and demonstrate functionality
 todo = TodoList()
