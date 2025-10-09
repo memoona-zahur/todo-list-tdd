@@ -6,7 +6,7 @@ Following TDD: Write tests first, implement code after.
 from typing import List
 
 import pytest
-from todo_list import TodoList
+from todo.todo_list import TodoList
 
 
 def test_mark_complete_by_index() -> None:

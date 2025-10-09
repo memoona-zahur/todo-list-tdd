@@ -19,7 +19,7 @@ def test_cli_add_command() -> None:
         # Capture stdout
         captured_output = StringIO()
         with patch('sys.stdout', captured_output):
-            with patch('todo_list.TodoList'):
+            with patch('todo.todo_list.TodoList'):
                 # Run the CLI main function
                 result = main()
                 # The main function should return None
@@ -35,7 +35,7 @@ def test_cli_list_command() -> None:
         # Capture stdout
         captured_output = StringIO()
         with patch('sys.stdout', captured_output):
-            with patch('todo_list.TodoList'):
+            with patch('todo.todo_list.TodoList'):
                 # Run the CLI main function
                 result = main()
                 # The main function should return None
@@ -112,7 +112,7 @@ def test_cli_invalid_command() -> None:
         # Capture stdout
         captured_output = StringIO()
         with patch('sys.stdout', captured_output):
-            with patch('todo_list.TodoList'):
+            with patch('todo.todo_list.TodoList'):
                 # Run the CLI main function
                 with pytest.raises(SystemExit):  # argparse typically exits on invalid command
                     main()

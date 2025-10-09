@@ -5,7 +5,8 @@ Command Line Interface for the Todo List application.
 import argparse
 import sys
 from typing import List, Union
-from todo.todo_list import TodoList
+from todo.todo_list import TodoList, save_tasks, load_tasks
+import os
 
 
 def create_parser() -> argparse.ArgumentParser:
@@ -92,7 +93,7 @@ def handle_list(todo_list: TodoList, args: argparse.Namespace) -> None:
             
         print("All tasks:")
         for i, task_data in enumerate(all_tasks):
-            status = "✓" if task_data["completed"] else "○"
+            status = "X" if task_data["completed"] else "O"
             print(f"  {i}. [{status}] {task_data['task']}")
 
 
@@ -136,11 +137,21 @@ def main() -> None:
     parser = create_parser()
     args = parser.parse_args()
     
-    # Initialize the todo list (in a real app, you might load from file)
+    # Initialize the todo list
     todo_list = TodoList()
     
-    # Load any existing data (in a real app, load from file)
-    # For now, we start with an empty list
+    # Define the data file path
+    data_file = "todo_data.json"
+    
+    # Load existing data if file exists and is not empty
+    if os.path.exists(data_file) and os.path.getsize(data_file) > 0:
+        try:
+            load_tasks(todo_list, data_file)
+        except Exception as e:
+            print(f"Warning: Could not load existing tasks: {e}")
+            print("Starting with an empty list.")
+    
+    # Handle commands
     
     if args.command == "add":
         handle_add(todo_list, args)
@@ -155,6 +166,13 @@ def main() -> None:
     else:
         parser.print_help()
         sys.exit(1)
+
+    # Save tasks after handling any command that might modify the todo list
+    if args.command in ["add", "delete", "update", "complete"]:
+        try:
+            save_tasks(todo_list, data_file)
+        except Exception as e:
+            print(f"Warning: Could not save tasks: {e}")
 
 
 if __name__ == "__main__":
