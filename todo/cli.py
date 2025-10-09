@@ -5,7 +5,7 @@ Command Line Interface for the Todo List application.
 import argparse
 import sys
 from typing import List, Union
-from todo_list import TodoList
+from .todo_list import TodoList
 
 
 def create_parser() -> argparse.ArgumentParser:

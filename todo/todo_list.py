@@ -2,6 +2,7 @@
 Todo List implementation module.
 """
 
+import json
 from typing import List, Union, Dict, Any
 
 
@@ -129,3 +130,42 @@ class TodoList:
     def view_tasks_with_status(self) -> List[Dict[str, Any]]:
         """Return a list of all tasks with their completion status."""
         return [{"task": item["task"], "completed": item["completed"]} for item in self.tasks]
+
+
+def save_tasks(todo_list: TodoList, filename: str) -> None:
+    """Save tasks to a JSON file.
+    
+    Args:
+        todo_list: The TodoList instance to save.
+        filename: The path to the JSON file to save tasks to.
+    """
+    with open(filename, 'w', encoding='utf-8') as f:
+        json.dump(todo_list.tasks, f, ensure_ascii=False, indent=2)
+
+
+def load_tasks(todo_list: TodoList, filename: str) -> None:
+    """Load tasks from a JSON file.
+    
+    Args:
+        todo_list: The TodoList instance to load tasks into.
+        filename: The path to the JSON file to load tasks from.
+        
+    Raises:
+        FileNotFoundError: If the specified file does not exist.
+        json.JSONDecodeError: If the file contains invalid JSON.
+    """
+    with open(filename, 'r', encoding='utf-8') as f:
+        tasks_data = json.load(f)
+        
+    # Validate that the loaded data is a list
+    if not isinstance(tasks_data, list):
+        raise ValueError("File does not contain a valid list of tasks")
+    
+    # Clear current tasks and load new ones
+    todo_list.tasks.clear()
+    for task_item in tasks_data:
+        # Validate each task has required fields
+        if isinstance(task_item, dict) and "task" in task_item and "completed" in task_item:
+            todo_list.tasks.append(task_item)
+        else:
+            raise ValueError(f"Invalid task format: {task_item}")

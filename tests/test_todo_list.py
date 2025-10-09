@@ -4,7 +4,7 @@ Following TDD: Write tests first, implement code after.
 """
 
 import pytest
-from todo_list import TodoList
+from todo.todo_list import TodoList
 
 
 def test_add_task() -> None:

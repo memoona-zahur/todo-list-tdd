@@ -6,7 +6,7 @@ Following TDD: Write tests first, implement code after.
 from typing import List
 
 import pytest
-from todo_list import TodoList
+from todo.todo_list import TodoList
 
 
 def test_delete_task_by_index_single_task() -> None:
